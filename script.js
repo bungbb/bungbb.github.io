@@ -2,11 +2,20 @@ const queryString = window.location.search;
 console.log(queryString);
 const urlParams = new URLSearchParams(queryString);
 const auth_key = urlParams.get("code")
-document.getElementById("code").innerHTML = auth_key;
+if (auth_key != null){
+    document.getElementById("code").innerHTML = auth_key;
+}else{
+    document.getElementById("code").innerHTML = "ERROR: No code found in URL";
+};
 
-function copyButton() {
-  var copyText = document.getElementById(auth_key);
-  copyText.select();
-  navigator.clipboard.writeText(copyText.value);
-  alert("Copied the text: " + copyText.value);
-}
+function copyButton()
+{
+  if (auth_key != null){
+      navigator.clipboard.writeText(auth_key);
+      alert("Copied the text: " + auth_key);
+  }else{
+      alert("No text to copy");
+  }
+  var tooltip = document.getElementById("myTooltip");
+  tooltip.innerHTML = "Copied: " + auth_key;
+};
